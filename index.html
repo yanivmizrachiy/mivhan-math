@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>חומר למבחן במתמטיקה - מדעית ט'1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1929 0%, #1a3a5a 100%);
+            background-attachment: fixed;
+            color: #ffffff;
+            line-height: 1.8;
+            padding: 20px;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(10, 25, 41, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            contain: layout style paint;
+            transform: translateZ(0);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #ffd700;
+        }
+
+        h1 {
+            color: #ffd700;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
+        }
+
+        .exam-info {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-right: 4px solid #ffd700;
+        }
+
+        .exam-info p {
+            margin: 8px 0;
+            font-size: 1.1em;
+        }
+
+        .warning-box {
+            background: rgba(255, 87, 34, 0.2);
+            border: 2px solid #ff5722;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 25px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        h2 {
+            color: #ffd700;
+            font-size: 1.8em;
+            margin: 35px 0 20px 0;
+            padding: 15px;
+            background: rgba(255, 215, 0, 0.15);
+            border-radius: 10px;
+            border-right: 5px solid #ffd700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        h3 {
+            color: #ffd700;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+            padding-right: 15px;
+            border-right: 3px solid #ffd700;
+        }
+
+        h4 {
+            color: #ffd700;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+            padding-right: 10px;
+        }
+
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            padding-right: 30px;
+        }
+
+        li {
+            margin: 12px 0;
+            padding-right: 10px;
+            font-size: 1.05em;
+        }
+
+        .formula {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            direction: ltr;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            transform: translateZ(0);
+        }
+
+        .definition {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-right: 3px solid #ffd700;
+        }
+
+        .properties {
+            background: rgba(26, 58, 90, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .properties li {
+            list-style-type: none;
+            position: relative;
+            padding-right: 25px;
+            transform: translateZ(0);
+        }
+
+        .properties li:before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+            font-size: 1.2em;
+        }
+
+        .properties li.no-checkmark:before {
+            content: "";
+        }
+
+        .area-calculation {
+            background: rgba(255, 215, 0, 0.15);
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin: 5px 0;
+            border-right: 3px solid #ffd700;
+            font-weight: 600;
+            display: inline-block;
+            width: calc(100% - 30px);
+        }
+
+        .success-message:before {
+            content: "✓ ";
+            color: #4caf50;
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .proof-section {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .proof-title {
+            color: #ffd700;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .proof-content {
+            background: rgba(26, 58, 90, 0.6);
+            padding: 15px;
+            border-radius: 8px;
+            border-right: 3px solid #ffd700;
+            line-height: 1.8;
+        }
+
+        .proof-content li {
+            position: relative;
+            padding-right: 25px;
+            margin: 12px 0;
+        }
+
+        .proof-content li:before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+            font-size: 1.2em;
+        }
+
+        .success-message {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #4caf50;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 15px;
+            border: 2px solid #4caf50;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 8px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .container {
+                padding: 15px;
+                border-radius: 12px;
+                will-change: contents;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 12px;
+            }
+
+            h2 {
+                font-size: 1.3em;
+                padding: 10px;
+                margin: 25px 0 15px 0;
+            }
+
+            h3 {
+                font-size: 1.15em;
+                margin: 20px 0 12px 0;
+            }
+
+            h4 {
+                font-size: 1.1em;
+                margin: 15px 0 8px 0;
+            }
+
+            .formula {
+                font-size: 0.9em;
+                padding: 10px;
+                margin: 12px 0;
+            }
+
+            li {
+                font-size: 0.95em;
+                margin: 10px 0;
+            }
+
+            .exam-info {
+                padding: 12px;
+                margin: 15px 0;
+            }
+
+            .exam-info p {
+                font-size: 1em;
+                margin: 6px 0;
+            }
+
+            .section {
+                padding: 15px;
+                margin: 20px 0;
+            }
+
+            .definition {
+                padding: 10px;
+            }
+
+            .properties {
+                padding: 12px;
+            }
+
+            ul, ol {
+                padding-right: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .container {
+                padding: 12px;
+                border-radius: 10px;
+            }
+
+            h1 {
+                font-size: 1.3em;
+                margin-bottom: 10px;
+            }
+
+            h2 {
+                font-size: 1.15em;
+                padding: 8px;
+                margin: 20px 0 12px 0;
+            }
+
+            h3 {
+                font-size: 1.05em;
+                margin: 18px 0 10px 0;
+            }
+
+            h4 {
+                font-size: 1em;
+                margin: 12px 0 6px 0;
+            }
+
+            .exam-info {
+                padding: 10px;
+                margin: 12px 0;
+            }
+
+            .exam-info p {
+                font-size: 0.95em;
+                margin: 5px 0;
+            }
+
+            .section {
+                padding: 12px;
+                margin: 15px 0;
+            }
+
+            .formula {
+                font-size: 0.85em;
+                padding: 8px;
+                margin: 10px 0;
+            }
+
+            li {
+                font-size: 0.9em;
+                margin: 8px 0;
+            }
+
+            .definition {
+                padding: 8px;
+            }
+
+            .properties {
+                padding: 10px;
+            }
+
+            ul, ol {
+                padding-right: 20px;
+            }
+
+            .warning-box {
+                padding: 12px;
+                font-size: 1em;
+            }
+
+            .proof-section {
+                padding: 15px;
+                margin: 20px 0;
+            }
+
+            .proof-title {
+                font-size: 1.15em;
+                margin-bottom: 12px;
+            }
+
+            .proof-content {
+                padding: 12px;
+                font-size: 0.95em;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Performance optimizations */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .section, .properties, .definition, .formula {
+            contain: layout style;
+            transform: translateZ(0);
+        }
+
+        /* Selection color */
+        ::selection {
+            background: #ffd700;
+            color: #0a1929;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>נושאים למבחן במתמטיקה הקבצה מדעית ט'1</h1>
+            <div class="exam-info">
+                <p>המבחן יתקיים ביום רביעי, 14.1.2025</p>
+                <p>יש להגיש עבודת הכנה ביום המבחן (כתיבה בעיפרון או בעט מחיק בלבד)</p>
+            </div>
+        </div>
+
+        <h2>חלק א' - אלגברה</h2>
+
+        <div class="section">
+            <h3>1. טכניקה אלגברית</h3>
+            
+            <h4>חוק הפילוג המורחב:</h4>
+            <div class="formula">(a + b)(c + d) = ac + ad + bc + bd</div>
+
+            <h4>נוסחאות הכפל המקוצר:</h4>
+            <ul>
+                <li><strong>נוסחה ראשונה – הפרש ריבועים:</strong>
+                    <div class="formula">(a-b)(a+b) = a² - b²</div>
+                </li>
+                <li><strong>נוסחה שנייה – ריבוע סכום:</strong>
+                    <div class="formula">(a+b)² = a² + 2ab + b²</div>
+                </li>
+                <li><strong>נוסחה שלישית – ריבוע הפרש:</strong>
+                    <div class="formula">(a-b)² = a² - 2ab + b²</div>
+                </li>
+            </ul>
+
+            <h4>פירוק לגורמים:</h4>
+            <ul>
+                <li>הוצאת גורם משותף</li>
+                <li>פירוק על פי נוסחאות הכפל המקוצר</li>
+                <li>פירוק הטרינום</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>2. שברים אלגבריים</h3>
+            <ul>
+                <li>צמצום שברים אלגבריים</li>
+                <li>כפל וחילוק שברים אלגבריים (כולל מציאת תחום הצבה)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>3. משוואה ריבועית</h3>
+            <div class="formula">ax² + bx + c = 0</div>
+            <ul>
+                <li>משוואה ריבועית שבה b=0 (b חסר): שתי שיטות שלמדנו</li>
+                <li>משוואה ריבועית שבה c=0 (c חסר)</li>
+                <li>משוואה ריבועית מלאה</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>4. חקירת פונקציה (מתוך ארכימדס)</h3>
+            <ul>
+                <li>נקודות חיתוך עם הצירים</li>
+                <li>תחומי עלייה וירידה</li>
+                <li>תחומי חיוביות ושליליות</li>
+                <li>נקודות קיצון: מקסימום ומינימום</li>
+                <li>הפרבולה הבסיסית y = x² וחקירתה (כולל ציר סימטריה)</li>
+                <li>נקודות סימטריות</li>
+                <li>הזזה אנכית והזזה אופקית של הפרבולה הבסיסית</li>
+            </ul>
+        </div>
+
+        <h2>חלק ב' - גאומטריה</h2>
+
+        <div class="section">
+            <h3>1. דלתון</h3>
+            <div class="definition">
+                <strong>הגדרה:</strong> דלתון הוא מרובע שבו שני זוגות נפרדים של צלעות סמוכות שוות זו לזו
+            </div>
+            <h4>תכונות הדלתון:</h4>
+            <div class="properties">
+                <ul>
+                    <li>בדלתון שני זוגות נפרדים של צלעות סמוכות שוות (לפי הגדרה)</li>
+                    <li>בדלתון זוויות הצד שוות זו לזו</li>
+                    <li>בדלתון האלכסון הראשי מאונך לאלכסון המשני</li>
+                    <li>בדלתון האלכסון הראשי חוצה את האלכסון המשני</li>
+                    <li><span class="area-calculation">חישוב שטח של דלתון: מחצית מכפלת האלכסונים</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>2. מקבילית</h3>
+            <div class="definition">
+                <strong>הגדרה:</strong> מקבילית היא מרובע שבו כל זוג צלעות נגדיות מקבילות
+            </div>
+            <h4>תכונות המקבילית:</h4>
+            <div class="properties">
+                <ul>
+                    <li>במקבילית הצלעות הנגדיות מקבילות (לפי הגדרה)</li>
+                    <li>במקבילית הצלעות הנגדיות שוות</li>
+                    <li>במקבילית האלכסונים חוצים זה את זה</li>
+                    <li>במקבילית הזוויות הנגדיות שוות</li>
+                    <li>במקבילית סכום כל שתי זוויות סמוכות הוא 180 מעלות</li>
+                    <li><span class="area-calculation">חישוב שטח של מקבילית: צלע כפול הגובה אליה</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>3. מעוין</h3>
+            <div class="definition">
+                <strong>הגדרה:</strong> מעוין הוא מרובע שבו כל הצלעות שוות זו לזו
+            </div>
+            <h4>תכונות המעוין: <span style="color: #ffffff;">כל תכונות המקבילית</span></h4>
+            <div class="properties">
+                <ul>
+                    <li class="no-checkmark">וגם:</li>
+                    <li>במעוין כל הצלעות שוות זו לזו (לפי הגדרה)</li>
+                    <li>במעוין האלכסונים מאונכים זה לזה</li>
+                    <li>במעוין האלכסונים הם חוצי הזוויות</li>
+                    <li><span class="area-calculation">חישוב שטח של מעוין: מחצית מכפלת האלכסונים</span></li>
+                </ul>
+            </div>
+
+            <div class="proof-section">
+                <div class="proof-title">איך מוכיחים שמקבילית היא מעוין?</div>
+                <div class="proof-content">
+                    <ul style="list-style: none; padding-right: 0;">
+                        <li>אם במקבילית האלכסונים מאונכים, אז המקבילית היא מעוין.</li>
+                        <li>אם במקבילית אלכסון חוצה זווית, אז המקבילית היא מעוין.</li>
+                        <li>אם במקבילית שתי צלעות סמוכות שוות, אז המקבילית היא מעוין.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="success-message">
+            בהצלחה
+        </div>
+    </div>
+</body>
+</html>
